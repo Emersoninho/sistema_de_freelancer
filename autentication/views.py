@@ -2,4 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def cadastro(request):
-    return HttpResponse('cadastro')
+    if request.method == 'GET':
+        return render(request, 'autentication/cadastro.html')
+    elif request.method == 'POST':
+        return HttpResponse('teste')
