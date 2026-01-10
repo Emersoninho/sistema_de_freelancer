@@ -1,1 +1,30 @@
-cadastro
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Freelancer{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'autentication/css/cadastro.css' %}">
+{% endblock head %}
+
+{% block body %}
+    <div class="box">
+        <form>
+            <h1 class="titulo font-degrade borda-bottom-degrade">INSCREVA-SE</h1>
+            <br>
+            <span class="span-descricao">Nome de usuario</span>
+            <input type="text" class="form-control input-cadastro" placeholder="nome..." name="username">
+            <br>
+            <span class="span-descricao">E-mail</span>
+            <input type="email" class="form-control input-cadastro" placeholder="email..." name="email">
+            <br>
+            <span class="span-descricao">Senha</span>
+            <input type="password" class="form-control input-cadastro" placeholder="senha..." name="password">
+            <br>
+            <span class="span-descricao">Corfirmar senha</span>
+            <input type="password" class="form-control input-cadastro" placeholder="confirmar senha..." name="confirm_password">
+            <br><input type="submit" value="CADASTRAR" class="btn btn-success btn-lg">
+            <a href="#" class="btn btn-primary btn-lg">LOGIN</a>
+        </form>
+    </div>
+{% endblock %}
