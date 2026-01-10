@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib.messages import constants
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'autentication',
 ]
+
+# criar o usuario pelo AbstractUser
+AUTH_USER_MODEL = 'autentication.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -121,3 +125,14 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+#messages tags
+
+MESSAGE_TAGS = {
+constants.DEBUG: 'alert-primary',
+constants.ERROR: 'alert-danger',
+constants.SUCCESS: 'alert-success',
+constants.INFO: 'alert-info',
+constants.WARNING: 'alert-warning',
+}
+

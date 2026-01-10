@@ -8,23 +8,48 @@
 {% endblock head %}
 
 {% block body %}
-    <div class="box">
-        <form>
+    <div class="fundo">
+        <div class="box">
             <h1 class="titulo font-degrade borda-bottom-degrade">INSCREVA-SE</h1>
-            <br>
-            <span class="span-descricao">Nome de usuario</span>
-            <input type="text" class="form-control input-cadastro" placeholder="nome..." name="username">
-            <br>
-            <span class="span-descricao">E-mail</span>
-            <input type="email" class="form-control input-cadastro" placeholder="email..." name="email">
-            <br>
-            <span class="span-descricao">Senha</span>
-            <input type="password" class="form-control input-cadastro" placeholder="senha..." name="password">
-            <br>
-            <span class="span-descricao">Corfirmar senha</span>
-            <input type="password" class="form-control input-cadastro" placeholder="confirmar senha..." name="confirm_password">
-            <br><input type="submit" value="CADASTRAR" class="btn btn-success btn-lg">
-            <a href="#" class="btn btn-primary btn-lg">LOGIN</a>
-        </form>
-    </div>
+             {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {{message.tags}}">
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            <form action="{% url 'cadastro' %}" method="POST">{% csrf_token %} 
+                <span class="span-descricao">Nome de usuario</span>
+                <input type="text" class="form-control input-cadastro" placeholder="nome..." name="username" value="{{username}}">
+                <br>
+                <span class="span-descricao">E-mail</span>
+                <input type="email" class="form-control input-cadastro" placeholder="email..." name="email" value="{{email}}">
+                <br>
+                <span class="span-descricao">CPF</span>
+                <input type="text" class="form-control input-cadastro" placeholder="000.000.000-00" name="cpf" value="{{cpf}}">
+                <br>
+                <span class="span-descricao">Telefone</span>
+                <input type="text" class="form-control input-cadastro" placeholder="(00) 00000-0000" name="telefone" value="{{telefone}}">
+                <br>
+
+                <span class="span-descricao">Eu quero:</span>
+                <select class="form-control input-cadastro" name="tipo">
+                    <option value="" {% if not tipo %}selected{% endif %} disabled>Selecione uma opção...</option>
+                    
+                    <option value="F" {% if tipo == 'F' %}selected{% endif %}>Trabalhar (Freelancer)</option>
+                    
+                    <option value="C" {% if tipo == 'C' %}selected{% endif %}>Contratar (Cliente)</option>
+                </select>
+                <br>
+                <span class="span-descricao">Senha</span>
+                <input type="password" class="form-control input-cadastro" placeholder="senha..." name="password">
+                <br>
+                <span class="span-descricao">Corfirmar senha</span>
+                <input type="password" class="form-control input-cadastro" placeholder="confirmar senha..." name="confirm_password">
+                <br>
+                <input type="submit" value="CADASTRAR" class="btn btn-success btn-lg">
+                <a href="{% url 'cadastro' %}" class="btn btn-primary btn-lg">LOGIN</a>
+            </form>
+        </div>
+    </div>    
 {% endblock %}

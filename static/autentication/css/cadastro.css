@@ -1,25 +1,79 @@
-.fundo{
+/* O segredo está aqui: o body é quem manda */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #222; /* Fundo escuro em tudo */
+}
+
+.fundo {
     background-color: #222;
-    color: white;
+    min-height: 100vh;      /* Ocupa a altura da tela */
+    width: 100%;
+    display: flex;          /* Ativa o Flexbox */
+    justify-content: center; /* Centraliza na horizontal */
+    align-items: flex-start; /* IMPORTANTE: Começa do topo para não cortar o título */
+    padding-top: 50px;      /* Espaço no topo para o título respirar */
+    padding-bottom: 50px;   /* Espaço no fundo */
+    overflow-y: auto;       /* Habilita o scroll se o conteúdo for grande */
 }
 
-.box{
+.box {
     background-color: #444;
-    width: 500px;
+    width: 100%;
+    max-width: 500px;       /* Mantém a largura elegante */
     padding: 40px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    box-shadow: 0 0px 20px 0 rgba( 255, 207, 0, 0.3 );
+    border-radius: 10px;
+    box-shadow: 0 0px 20px 0 rgba(255, 207, 0, 0.3);
+    /* Removido position absolute, top, left e transform */
 }
 
-.span-descricao{
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+.titulo {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
+    font-size: 42px; /* Reduzi levemente de 52 para 42 para caber melhor */
+    margin-bottom: 20px;
 }
-.input-cadastro{
-    margin-top: 15px;
+
+.titulo {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 40px;        /* Reduzi um pouco para não quebrar em 2 linhas */
+    margin-bottom: 20px;    /* Espaço entre título e campos */
+}
+
+/* Garante que os inputs não fiquem colados */
+.input-cadastro {
+    margin-bottom: 15px; 
+    width: 100%;
+}
+
+/* Isso vai garantir que as etiquetas (Labels) fiquem brancas */
+.span-descricao {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    color: white; /* Cor branca para as descrições */
+    display: block; /* Garante que fiquem acima do input */
+    margin-top: 15px; /* Dá um respiro entre os campos */
+}
+
+/* Caso queira que o texto que o usuário digita também tenha uma cor específica */
+.input-cadastro {
+    background-color: #555; /* Um cinza um pouco mais claro que o fundo da box */
+    border: 1px solid #666;
+    color: white; /* Texto digitado em branco */
+}
+
+/* Ajuste para o texto dentro do input (placeholder) */
+.input-cadastro::placeholder {
+    color: #bbb; /* Cor cinza clara para o exemplo "nome..." */
+}
+
+/* Ajuste para o texto dentro do Select (Freelancer/Cliente) */
+select.input-cadastro {
+    color: white;
+    background-color: #555;
 }
 
 .font-degrade{
