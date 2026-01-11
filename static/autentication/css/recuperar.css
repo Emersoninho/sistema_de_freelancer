@@ -1,0 +1,54 @@
+/* Estilo exclusivo para as páginas de recuperação de senha */
+
+.fundo-recuperar {
+    background-color: #222 !important;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 50px;
+}
+
+.box-recuperar {
+    background-color: #444 !important;
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 207, 0, 0.2);
+    border: 1px solid #555;
+}
+
+.input-recuperar {
+    background-color: #333 !important;
+    border: 1px solid #666 !important;
+    color: #fff !important;
+    height: 48px !important;
+    margin-bottom: 20px;
+}
+
+.input-recuperar:focus {
+    background-color: #222 !important;
+    border-color: #ffc107 !important;
+    box-shadow: 0 0 8px rgba(255, 193, 7, 0.4) !important;
+    color: white !important;
+}
+
+.label-recuperar {
+    color: #eee;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Estilo para o texto de instrução dentro do campo (Placeholder) */
+.input-recuperar::placeholder {
+    color: #999 !important; /* Um cinza claro que aparece bem no fundo escuro */
+    opacity: 1; /* Garante que o Firefox não diminua a opacidade */
+    font-size: 14px;
+}
+
+/* Para navegadores mais antigos ou específicos */
+.input-recuperar::-webkit-input-placeholder { color: #999; }
+.input-recuperar::-moz-placeholder { color: #999; }
+.input-recuperar:-ms-input-placeholder { color: #999; }
