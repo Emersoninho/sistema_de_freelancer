@@ -3,13 +3,18 @@ from django.http import HttpResponse
 from django.contrib import messages
 from .utils import fields_are_empty, password_is_valid, cpf_is_valid, phone_is_valid
 from django.contrib.auth import get_user_model # usar o usuario costumizado
-from django.contrib.auth import authenticate, login as auth_login #autenticar e logar
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout #autenticar e logar
+from django.contrib.auth.decorators import login_required
 
 # Definimos o modelo de usuário logo no início
 # Isso faz com que a variável 'User' seja o seu 'CustomUser' do autentication
 User = get_user_model()
 
 def cadastro(request):
+    # Se o usuário já estiver logado, manda direto para a home
+    if request.user.is_authenticated:
+        return redirect('home')
+
     if request.method == 'GET':
         return render(request, 'cadastro.html')
     
@@ -87,6 +92,10 @@ def cadastro(request):
             return render(request, 'cadastro.html', dados_preenchidos)    
 
 def login(request):
+    # Se o usuário já estiver logado, manda direto para a home
+    if request.user.is_authenticated:
+        return redirect('home')
+
     if request.method == 'GET':
         return render(request, 'login.html')
 
@@ -108,3 +117,12 @@ def login(request):
         else:
             messages.error(request, 'E-mail ou senha inválidos.')
             return render(request, 'login.html')    
+
+def logout(request):
+    auth_logout(request) # apaga a sessão so usuario
+    messages.info(request, 'Você saiu do sistema.')
+    return redirect('login') # Redireciona de volta para o login
+
+@login_required(login_url='login') # Se não estiver logado, pula para o login
+def home(request):
+    return render(request, 'home.html')    
