@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'autentication',
+    'jobs',
 ]
 
 # criar o usuario pelo AbstractUser

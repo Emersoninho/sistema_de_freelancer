@@ -1,10 +1,13 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views #urls de recuperação de senha
-
+from django.shortcuts import redirect #url vazia
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('autentication.urls')),
+    
+    # Quando a URL for vazia, redireciona para 'cadastro/'
+    path('', lambda request: redirect('cadastro/')),
 
     # 1. Página para digitar o e-mail
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name="password_reset.html"), name='password_reset'),
