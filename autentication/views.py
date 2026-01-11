@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from .utils import fields_are_empty, password_is_valid, cpf_is_valid, phone_is_valid
 from django.contrib.auth import get_user_model # usar o usuario costumizado
+from django.contrib.auth import authenticate, login as auth_login #autenticar e logar
 
 # Definimos o modelo de usuário logo no início
 # Isso faz com que a variável 'User' seja o seu 'CustomUser' do autentication
@@ -77,10 +78,33 @@ def cadastro(request):
             )
             # Se chegou aqui, deu tudo certo!
             messages.success(request, 'Cadastro realizado com sucesso!')
-            return redirect('/') # Ou a sua página de sucesso
+            return redirect('login') # Ou a sua página de sucesso
 
         except Exception as e:
             # Se o banco de dados rejeitar algo por algum motivo inesperado
             print(f"Erro interno: {e}") # Para você ver o erro no terminal
             messages.error(request, 'Erro interno do sistema. Tente novamente mais tarde.')
             return render(request, 'cadastro.html', dados_preenchidos)    
+
+def login(request):
+    if request.method == 'GET':
+        return render(request, 'login.html')
+
+    elif request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        # função de validação do utils
+        if fields_are_empty(request, Email=email, Senha=password):
+            return render(request, 'login.html')
+
+        # SE PASSOU PELO UTILS, TENTA AUTENTICAR
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            auth_login(request, user)
+            messages.success(request, f'Login realizado com sucesso! Bem-vindo, {user.username}.')
+            return redirect('cadastro')
+        else:
+            messages.error(request, 'E-mail ou senha inválidos.')
+            return render(request, 'login.html')    

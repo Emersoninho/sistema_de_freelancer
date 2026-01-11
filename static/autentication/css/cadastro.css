@@ -7,32 +7,36 @@ body {
 
 .fundo {
     background-color: #222;
-    min-height: 100vh;      /* Ocupa a altura da tela */
+    min-height: 100vh;
     width: 100%;
-    display: flex;          /* Ativa o Flexbox */
-    justify-content: center; /* Centraliza na horizontal */
-    align-items: flex-start; /* IMPORTANTE: Começa do topo para não cortar o título */
-    padding-top: 50px;      /* Espaço no topo para o título respirar */
-    padding-bottom: 50px;   /* Espaço no fundo */
-    overflow-y: auto;       /* Habilita o scroll se o conteúdo for grande */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* REDUZIDO: de 50px para 20px para subir a caixa toda */
+    padding-top: 20px; 
+    padding-bottom: 50px;
+    overflow-y: auto;
 }
 
 .box {
     background-color: #444;
     width: 100%;
-    max-width: 500px;       /* Mantém a largura elegante */
-    padding: 40px;
+    max-width: 500px;
+    /* REDUZIDO: padding interno do topo da box de 40px para 20px */
+    padding: 20px 40px 40px 40px; 
     border-radius: 10px;
     box-shadow: 0 0px 20px 0 rgba(255, 207, 0, 0.3);
-    /* Removido position absolute, top, left e transform */
 }
 
+/* ÚNICO BLOCO PARA O TITULO (Limpando as repetições) */
 .titulo {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    font-size: 42px; /* Reduzi levemente de 52 para 42 para caber melhor */
-    margin-bottom: 20px;
+    font-size: 42px;
+    /* AJUSTADO: margem superior negativa para subir bem o texto */
+    margin-top: -10px; 
+    margin-bottom: 15px;
 }
 
 .titulo {

@@ -18,6 +18,7 @@
                         </div>
                     {% endfor %}
                 {% endif %}
+
             <form action="{% url 'cadastro' %}" method="POST">{% csrf_token %} 
                 <span class="span-descricao">Nome de usuario</span>
                 <input type="text" class="form-control input-cadastro" placeholder="nome..." name="username" value="{{username}}">
@@ -31,13 +32,10 @@
                 <span class="span-descricao">Telefone</span>
                 <input type="text" class="form-control input-cadastro" placeholder="(00) 00000-0000" name="telefone" value="{{telefone}}">
                 <br>
-
                 <span class="span-descricao">Eu quero:</span>
                 <select class="form-control input-cadastro" name="tipo">
                     <option value="" {% if not tipo %}selected{% endif %} disabled>Selecione uma opção...</option>
-                    
                     <option value="F" {% if tipo == 'F' %}selected{% endif %}>Trabalhar (Freelancer)</option>
-                    
                     <option value="C" {% if tipo == 'C' %}selected{% endif %}>Contratar (Cliente)</option>
                 </select>
                 <br>
@@ -48,7 +46,7 @@
                 <input type="password" class="form-control input-cadastro" placeholder="confirmar senha..." name="confirm_password">
                 <br>
                 <input type="submit" value="CADASTRAR" class="btn btn-success btn-lg">
-                <a href="{% url 'cadastro' %}" class="btn btn-primary btn-lg">LOGIN</a>
+                <a href="{% url 'login' %}" class="btn btn-primary btn-lg">LOGIN</a>
             </form>
         </div>
     </div>    
