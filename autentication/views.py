@@ -13,7 +13,7 @@ User = get_user_model()
 def cadastro(request):
     # Se o usuário já estiver logado, manda direto para a home
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('encontrar_jobs')
 
     if request.method == 'GET':
         return render(request, 'cadastro.html')
@@ -94,7 +94,7 @@ def cadastro(request):
 def login(request):
     # Se o usuário já estiver logado, manda direto para a home
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('encontrar_jobs')
 
     if request.method == 'GET':
         return render(request, 'login.html')
@@ -112,17 +112,14 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
-            messages.success(request, f'Login realizado com sucesso! Bem-vindo, {user.username}.')
-            return redirect('cadastro')
+            #messages.success(request, f'Login realizado com sucesso! Bem-vindo, {user.username}.')
+            return redirect('encontrar_jobs')
         else:
             messages.error(request, 'E-mail ou senha inválidos.')
-            return render(request, 'login.html')    
+            return redirect('login')    
 
 def logout(request):
     auth_logout(request) # apaga a sessão so usuario
-    messages.info(request, 'Você saiu do sistema.')
+    #messages.info(request, 'Você saiu do sistema.')
     return redirect('login') # Redireciona de volta para o login
 
-@login_required(login_url='login') # Se não estiver logado, pula para o login
-def home(request):
-    return render(request, 'home.html')    

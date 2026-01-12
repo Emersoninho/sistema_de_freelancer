@@ -152,3 +152,9 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+# Nome da URL (name) da sua página de jobs
+LOGIN_REDIRECT_URL = 'encontrar_jobs' 
+
+# Caso alguém tente acessar uma página restrita sem estar logado, ele vai para:
+LOGIN_URL = 'login'
