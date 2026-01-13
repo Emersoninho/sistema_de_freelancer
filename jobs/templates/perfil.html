@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'jobs/css/encontrar_jobs.css' %}">
+<link rel="stylesheet" href="{% static 'jobs/css/perfil.css' %}">
+{% endblock %}
+
+{% block body %}
+<br><br>
+<div class="container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{message.tags}}">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div style="width: 60%">
+        <form action="{% url 'perfil' %}" method="POST">{% csrf_token %}
+            <p>Username:</p>
+            <input type="text" class="form-control" value="{{user.username}}" name="username">
+            <br>
+            <p>Email:</p>
+            <input type="email" class="form-control" value="{{user.email}}" name="email">
+            <br>
+            <p>Primeiro nome:</p>
+            <input type="text" class="form-control" value="{{user.first_name}}" name="primeiro_nome">
+            <br>
+            <p>Último nome:</p>
+            <input type="text" class="form-control" value="{{user.last_name}}" name="ultimo_nome">
+            <br>
+            <input type="submit" class="btn btn-success btn-lg" value="Salvar alterações">
+        </form>
+        </div>
+
+    <br>
+    <hr class="borda-degrade">
+    <br>
+
+    <h4 class="titulo">Histórico</h4>
+    <table style="background-color: #222; color: white;" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Imagem</th>
+                <th scope="col">Título</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in jobs %}
+                <tr>
+                    <th scope="row">
+                        {% if job.referencias.all %}
+                            <img width="100px" src="{{job.referencias.all.0.arquivo.url}}">
+                        {% endif %}
+                    </th>
+                    <td>Status real no banco: {{job.status}}</td>
+                    <td>{{job.titulo}}</td>
+                    <td>
+                        {% if job.categoria == 'D' %} Design {% else %} Edição de vídeo {% endif %}
+                    </td>
+                   <td>
+                        {% if job.status|slugify == "aa" %}
+                            <span class="badge bg-info">Aguardando aprovação</span>
+                            <br>
+                            {% if job.arquivo_final %} <a href="{{job.arquivo_final.url}}" class="text-white" style="font-size: 12px;" target="_blank">
+                                    <i class="bi bi-download"></i> Ver arquivo enviado
+                                </a>
+                            {% endif %} {% elif job.status|slugify == "c" %}
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal-job-{{job.id}}">
+                                Em criação (Entregar)
+                            </button>
+
+                        {% else %}
+                            <span class="badge bg-success">Finalizado</span>
+                            <br>
+                            {% if job.arquivo_final %} <a href="{{job.arquivo_final.url}}" class="text-secondary" style="font-size: 12px;" target="_blank">
+                                    Arquivo final
+                                </a>
+                            {% endif %} {% endif %}
+                    </td>
+                </tr>
+
+                <div class="modal fade" id="modal-job-{{job.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div style="background-color: #333;" class="modal-content text-white">
+                            <div class="modal-header">
+                                <h5 class="modal-title">JOB: {{job.titulo}}</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h6>Status: <span class="badge badge-primary">Em criação</span></h6>
+                                <p>Prazo: {{job.prazo_entrega}}</p>
+                                <hr style="border-top: 1px solid #444;">
+                                
+                                <form action="{% url 'enviar_projeto' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                                    <input type="hidden" value="{{job.id}}" name="id_job">
+                                    <h6 class="titulo-body">Enviar projeto finalizado:</h6>
+                                    <input type="file" name="arquivo" class="form-control">
+                                    <br>
+                                    <input type="submit" value="Enviar Projeto" class="btn btn-success btn-lg w-100">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

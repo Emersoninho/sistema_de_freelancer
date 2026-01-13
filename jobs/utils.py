@@ -21,3 +21,13 @@ def filtrar_jobs(preco_minimo, preco_maximo, prazo_minimo, prazo_maximo, categor
         jobs = jobs.filter(categoria=categoria)
 
     return jobs
+
+# --- BLOCO DE USUÁRIO (PERFIL) ---
+def validar_perfil(username, email, usuario_atual):
+    if User.objects.filter(username=username).exclude(id=usuario_atual.id).exists():
+        return False, 'Já existe um usuário com esse nome'
+    
+    if User.objects.filter(email=email).exclude(id=usuario_atual.id).exists():
+        return False, 'Já existe um usuário com esse E-mail'
+    
+    return True, None   

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <br><br>
+    <h2 class="titulo">Meus Jobs Postados</h2>
+    <p>Acompanhe o status dos projetos que você solicitou.</p>
+    <hr class="borda-degrade">
+
+    <table class="table table-striped text-white" style="background-color: #222;">
+        <thead>
+            <tr>
+                <th>Job</th>
+                <th>Freelancer</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in meus_jobs %}
+            <tr>
+                <td>{{job.titulo}}</td>
+                <td>
+                    {% if job.profissional %}
+                        {{job.profissional.username}}
+                    {% else %}
+                        <span class="badge bg-secondary">Ainda ninguém aceitou</span>
+                    {% endif %}
+                </td>
+                <td>{{job.get_status_display}}</td>
+                <td>
+                    {% if job.status == 'AA' %}
+                        <a href="{{job.arquivo_final.url}}" class="btn btn-info btn-sm" target="_blank">Baixar Entrega</a>
+                        <a href="{% url 'aprovar_projeto' job.id %}" class="btn btn-success btn-sm">Aprovar</a>
+                    {% elif job.status == 'F' %}
+                        <span class="text-success">Concluído ✅</span>
+                    {% else %}
+                        <span class="text-muted">Aguardando freelancer</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

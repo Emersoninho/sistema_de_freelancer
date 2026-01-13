@@ -32,6 +32,12 @@ class Jobs(models.Model):
     reservado = models.BooleanField(default=False)
     # Adicionado choices=status_choices aqui
     status = models.CharField(max_length=2, choices=status_choices, default='AA')
+    arquivo_final = models.FileField(null=True, blank=True)
+    # Adicione esta linha:
+    usuario_postou = models.ForeignKey(User, on_delete=models.CASCADE, related_name='jobs_postados', null=True, blank=True)
+    
+    # O campo profissional já existe, mantenha-o:
+    profissional = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self) -> str:
         return self.titulo    
