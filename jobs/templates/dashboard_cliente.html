@@ -1,12 +1,31 @@
 {% extends 'base.html' %}
 
 {% block body %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
 <div class="container">
     <br><br>
     <h2 class="titulo">Meus Jobs Postados</h2>
     <p>Acompanhe o status dos projetos que você solicitou.</p>
     <hr class="borda-degrade">
-
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-dark mb-3" style="border: 1px solid #333;">
+                <div class="card-body">
+                    <h5 class="card-title text-muted">Total Investido</h5>
+                    <h3 class="card-text text-success">R$ {{ total_gasto }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
     <table class="table table-striped text-white" style="background-color: #222;">
         <thead>
             <tr>
@@ -32,6 +51,7 @@
                     {% if job.status == 'AA' %}
                         <a href="{{job.arquivo_final.url}}" class="btn btn-info btn-sm" target="_blank">Baixar Entrega</a>
                         <a href="{% url 'aprovar_projeto' job.id %}" class="btn btn-success btn-sm">Aprovar</a>
+                        <a href="{% url 'recusar_projeto' job.id %}" class="btn btn-danger btn-sm">Recusar</a>
                     {% elif job.status == 'F' %}
                         <span class="text-success">Concluído ✅</span>
                     {% else %}

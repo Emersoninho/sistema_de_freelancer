@@ -3,7 +3,7 @@ from .utils import filtrar_jobs, validar_perfil
 from .models import Jobs
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.http import HttpResponse
+from django.db.models import Sum
 
 User = get_user_model()
 
@@ -81,8 +81,10 @@ def enviar_projeto(request):
 def dashboard_cliente(request):
     # Filtra jobs que eu (usuário logado) postei
     meus_jobs = Jobs.objects.filter(usuario_postou=request.user)
-    
-    return render(request, 'dashboard_cliente.html', {'meus_jobs': meus_jobs})
+    # Soma o preço apenas dos jobs que estão com status 'F' (Finalizado)
+    total_gasto = meus_jobs.filter(status='F').aggregate(Sum('preco'))['preco__sum'] or 0
+
+    return render(request, 'dashboard_cliente.html', {'meus_jobs': meus_jobs, 'total_gasto': total_gasto})
 
 from django.shortcuts import get_object_or_404, redirect
 
@@ -97,3 +99,17 @@ def aprovar_projeto(request, id):
     else:
         # Se alguém tentar aprovar um job que não é seu
         return redirect('/jobs/perfil/')    
+
+def recusar_projeto(request, id):
+    job = get_object_or_404(Jobs, id=id)
+
+    # Segurança: Apenas o dono pode recusar
+    if job.usuario_postou == request.user:
+        job.status = "C"  # Volta para 'Em criação'
+        job.arquivo_final = None # Remove o arquivo errado
+        job.save()
+        messages.warning(request, 'Entrega recusada. O projeto voltou para o status de criação.')
+    else:
+        messages.error(request, 'Ação não permitida.')
+
+    return redirect('/jobs/dashboard_cliente/')        
