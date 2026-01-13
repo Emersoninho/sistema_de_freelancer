@@ -12,9 +12,9 @@
     <div class="row">
         <div class="col-sm">
             <form action="{% url 'encontrar_jobs' %}" method="GET">
-                <input type="text" class="form-control" placeholder="Preço mínimo" name="preco_minimo">
+                <input type="text" class="form-control" placeholder="Preço mínimo" name="preco_minimo" value="{{request.GET.get.preco_minimo}}">
                 <br>
-                <input type="text" class="form-control" placeholder="Preço máximo" name="preco_maximo">
+                <input type="text" class="form-control" placeholder="Preço máximo" name="preco_maximo" value="{{request.GET.get.preco_minimo}}">
         </div>
         <div class="col-sm">
             <input type="date" class="form-control" name="prazo_minimo">
@@ -23,6 +23,7 @@
         </div>
         <div class="col-sm">
             <select class="form-control" name="categoria">
+                <option value="">Todas as Categorias</option>
                 <option value="D">Design</option>
                 <option value="EV">Edição de vídeo</option>
             </select>
@@ -35,30 +36,29 @@
     <br>
     <h2 class="titulo">JOB’S EM ABERTO:</h2>
     <div class="row justify-content-around">
+    {% for job in jobs %}
         <div class="col-6 row-card">
             <div class="card-job">
                 <div class="header-job">
-                    <h4 class="titulo-job">Criação de thumb</h4>
+                    <h4 class="titulo-job">{{jobs.titulo}}</h4>
                 </div>
                 <div class="body-job">
                     <p class="titulo-body">Descrição:</p>
                     <div style="width: 70%">
-                        <p>What is Lorem Ipsum?Lorem Ipsum is simply
-                            dummy text of the printing and
-                            typesettingindustry. Lorem Ipsum has been</p>
+                        <p>{{ job.descricao|truncatechars:100 }}0</p>
                     </div>
                     <div class="row">
                         <div class="col-4">
                             <p class="titulo-body">Preço:</p>
-                            <p>R$ 25,00</p>
+                            <p>{{job.preco}}</p>
                         </div>
                         <div class="col-4">
                             <p class="titulo-body">Prazo:</p>
-                            <p>22 de Abril</p>
+                            <p>{{ job.prazo_entrega|date:"d \d\e F" }}<p>
                         </div>
                         <div class="col-4">
                             <p class="titulo-body">Categoria:</p>
-                            <p>Design</p>
+                            <p>{{ job.get_categoria_display }}</p>
                         </div>
                     </div>
                     <button class="btn btn-success">Ver detalhes</button>
@@ -67,6 +67,9 @@
                 </div>
             </div>
         </div>
+    {% empty %}
+        <p class="text-center">Nenhum job disponível no momento.</p>
+    {% endfor %}        
     </div>
 </div>
 {% endblock %}

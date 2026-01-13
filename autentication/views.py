@@ -15,10 +15,10 @@ def cadastro(request):
     if request.user.is_authenticated:
         return redirect('encontrar_jobs')
 
-    if request.method == 'GET':
+    if request.method == 'GET': # buscas e filtros
         return render(request, 'cadastro.html')
     
-    elif request.method == 'POST':
+    elif request.method == 'POST': # cadastro e alteraçoes
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -96,10 +96,10 @@ def login(request):
     if request.user.is_authenticated:
         return redirect('encontrar_jobs')
 
-    if request.method == 'GET':
+    if request.method == 'GET': # buscas e filtros
         return render(request, 'login.html')
 
-    elif request.method == 'POST':
+    elif request.method == 'POST': # cadastro e alteraçoes
         email = request.POST.get('email')
         password = request.POST.get('password')
 
