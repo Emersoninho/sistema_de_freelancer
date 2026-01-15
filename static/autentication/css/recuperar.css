@@ -1,54 +1,103 @@
-/* Estilo exclusivo para as páginas de recuperação de senha */
+/* ===== RECUPERAR SENHA (PADRÃO LOGIN/CADASTRO) ===== */
 
+/* Fundo geral */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #222;
+}
+
+/* Container principal */
 .fundo-recuperar {
-    background-color: #222 !important;
+    background-color: #222;
     min-height: 100vh;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 50px;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    overflow-y: auto;
 }
 
+/* Caixa central */
 .box-recuperar {
-    background-color: #444 !important;
+    background-color: #444;
     width: 100%;
-    max-width: 450px;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 207, 0, 0.2);
-    border: 1px solid #555;
+    max-width: 500px;
+    padding: 20px 40px 40px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0px 20px 0 rgba(255, 207, 0, 0.3);
 }
 
-.input-recuperar {
-    background-color: #333 !important;
-    border: 1px solid #666 !important;
-    color: #fff !important;
-    height: 48px !important;
+/* Título */
+.titulo-recuperar {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 42px;
+    margin-top: -10px;
     margin-bottom: 20px;
 }
 
-.input-recuperar:focus {
-    background-color: #222 !important;
-    border-color: #ffc107 !important;
-    box-shadow: 0 0 8px rgba(255, 193, 7, 0.4) !important;
-    color: white !important;
+/* Gradiente do título */
+.font-degrade {
+    background-image: linear-gradient(
+        90deg,
+        rgba(255, 207, 0, 1) 0%,
+        rgba(231, 71, 220, 1) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
 }
 
+/* Borda inferior decorativa */
+.borda-bottom-degrade {
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(
+        90deg,
+        rgba(231, 71, 220, 1) 0%,
+        rgba(255, 207, 0, 1) 100%
+    );
+    border-image-slice: 1;
+    padding-bottom: 10px;
+}
+
+/* Labels */
 .label-recuperar {
-    color: #eee;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+        'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: bold;
+    color: white;
     display: block;
-    margin-bottom: 8px;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
-/* Estilo para o texto de instrução dentro do campo (Placeholder) */
+/* Inputs */
+.input-recuperar {
+    width: 100%;
+    background-color: #555;
+    border: 1px solid #666;
+    color: white;
+    height: 48px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* Placeholder */
 .input-recuperar::placeholder {
-    color: #999 !important; /* Um cinza claro que aparece bem no fundo escuro */
-    opacity: 1; /* Garante que o Firefox não diminua a opacidade */
-    font-size: 14px;
+    color: #bbb;
 }
 
-/* Para navegadores mais antigos ou específicos */
-.input-recuperar::-webkit-input-placeholder { color: #999; }
-.input-recuperar::-moz-placeholder { color: #999; }
-.input-recuperar:-ms-input-placeholder { color: #999; }
+/* Focus */
+.input-recuperar:focus {
+    outline: none;
+    border-color: #ffc107;
+    box-shadow: 0 0 8px rgba(255, 193, 7, 0.4);
+    background-color: #555;
+    color: white;
+}
+

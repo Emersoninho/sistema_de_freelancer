@@ -56,8 +56,6 @@ def email_is_valid(request, email, confirm_email):
         
     return True
 
-import re
-
 def cpf_is_valid(cpf):
     # Remove pontos e traços para validar apenas os números
     cpf_limpo = re.sub(r'\D', '', cpf)
