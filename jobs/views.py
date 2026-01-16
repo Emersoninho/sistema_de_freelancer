@@ -63,7 +63,7 @@ def perfil(request):
 
     if request.method == "GET":
         # Busca apenas os jobs que o usuário logado aceitou
-        jobs = Jobs.objects.filter(profissional=request.user)
+        jobs = Jobs.objects.filter(profissional=request.user, status__in=['E', 'AA'])
         return render(request, 'perfil.html', {'jobs': jobs})
     
     elif request.method == "POST":
@@ -116,7 +116,7 @@ def enviar_projeto(request):
 @login_required # precisa altera banco de dados
 def dashboard_cliente(request):
     # Filtra jobs que eu (usuário logado) postei
-    meus_jobs = Jobs.objects.filter(usuario_postou=request.user)
+    meus_jobs = Jobs.objects.filter(usuario_postou=request.user, status__in=['E', 'AA'])
     # Soma o preço apenas dos jobs que estão com status 'F' (Finalizado)
     total_gasto = meus_jobs.filter(status='F').aggregate(Sum('preco'))['preco__sum'] or 0
 
@@ -155,3 +155,5 @@ def recusar_projeto(request, id):
         messages.error(request, 'Ação não permitida.')
 
     return redirect('/jobs/dashboard_cliente/')        
+
+

@@ -18,7 +18,7 @@ class Jobs(models.Model):
     status_choices = (
         ('C', 'Em criação'),
         ('AA', 'Aguardando aprovação'),
-        ('F', 'Finalizado')
+        ('F', 'Finalizado'),
     )
     
     titulo = models.CharField(max_length=200)
@@ -35,9 +35,6 @@ class Jobs(models.Model):
     arquivo_final = models.FileField(null=True, blank=True)
     # Adicione esta linha:
     usuario_postou = models.ForeignKey(User, on_delete=models.CASCADE, related_name='jobs_postados', null=True, blank=True)
-    
-    # O campo profissional já existe, mantenha-o:
-    profissional = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self) -> str:
         return self.titulo    

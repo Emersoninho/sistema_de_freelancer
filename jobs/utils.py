@@ -1,10 +1,8 @@
 from .models import Jobs
 from django.contrib.auth import get_user_model
+from datetime import datetime
 
 User = get_user_model()
-
-from .models import Jobs
-from datetime import datetime
 
 def filtrar_jobs(preco_minimo, preco_maximo, prazo_minimo, prazo_maximo, categoria):
     jobs = Jobs.objects.filter(reservado=False)
