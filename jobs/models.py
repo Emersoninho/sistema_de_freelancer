@@ -31,8 +31,8 @@ class Jobs(models.Model):
     profissional = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     reservado = models.BooleanField(default=False)
     # Adicionado choices=status_choices aqui
-    status = models.CharField(max_length=2, choices=status_choices, default='AA')
-    arquivo_final = models.FileField(null=True, blank=True)
+    status = models.CharField(max_length=2, choices=status_choices, default='C')
+    arquivo_final = models.FileField(null=True)
     # Adicione esta linha:
     usuario_postou = models.ForeignKey(User, on_delete=models.CASCADE, related_name='jobs_postados', null=True, blank=True)
 

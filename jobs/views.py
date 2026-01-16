@@ -24,7 +24,7 @@ def encontrar_jobs(request):
 
         return render(request, 'encontrar_jobs.html', {'jobs': jobs})
 
-@login_required # precisa altera banco de dados
+@login_required(login_url='/auth/login') # precisa altera banco de dados
 def aceitar_job(request, id):
 
     # 🚫 Só aceita POST
@@ -55,7 +55,7 @@ def aceitar_job(request, id):
     messages.success(request, 'Job aceito com sucesso!')
     return redirect('/jobs/perfil/')
 
-@login_required # precisa altera banco de dados
+@login_required(login_url='/auth/login')  # precisa altera banco de dados
 def perfil(request):
     # 🔐 Bloqueia usuários que NÃO são freelancers
     if request.user.tipo != 'F':
@@ -63,7 +63,7 @@ def perfil(request):
 
     if request.method == "GET":
         # Busca apenas os jobs que o usuário logado aceitou
-        jobs = Jobs.objects.filter(profissional=request.user, status__in=['E', 'AA'])
+        jobs = Jobs.objects.filter(profissional=request.user)
         return render(request, 'perfil.html', {'jobs': jobs})
     
     elif request.method == "POST":
@@ -87,7 +87,7 @@ def perfil(request):
         messages.success(request, 'Dados atualizados com sucesso!')
         return redirect('/jobs/perfil')
 
-@login_required # precisa altera banco de dados
+@login_required(login_url='/auth/login')  # precisa altera banco de dados
 def enviar_projeto(request):
     if request.method != 'POST':
         return redirect('/jobs/perfil/')
@@ -113,16 +113,16 @@ def enviar_projeto(request):
     messages.success(request, 'Projeto enviado com sucesso!')
     return redirect('/jobs/perfil/')
 
-@login_required # precisa altera banco de dados
+@login_required(login_url='/auth/login')  # precisa altera banco de dados
 def dashboard_cliente(request):
     # Filtra jobs que eu (usuário logado) postei
-    meus_jobs = Jobs.objects.filter(usuario_postou=request.user, status__in=['E', 'AA'])
+    meus_jobs = Jobs.objects.filter(usuario_postou=request.user)
     # Soma o preço apenas dos jobs que estão com status 'F' (Finalizado)
     total_gasto = meus_jobs.filter(status='F').aggregate(Sum('preco'))['preco__sum'] or 0
 
     return render(request, 'dashboard_cliente.html', {'meus_jobs': meus_jobs, 'total_gasto': total_gasto})
 
-@login_required # precisa altera banco de dados
+@login_required(login_url='/auth/login') # precisa altera banco de dados
 def aprovar_projeto(request, id):
 
     if request.method != 'POST':
@@ -141,7 +141,7 @@ def aprovar_projeto(request, id):
     return redirect('/jobs/dashboard_cliente/')
    
 
-@login_required # precisa altera banco de dados
+@login_required(login_url='/auth/login')  # precisa altera banco de dados
 def recusar_projeto(request, id):
     job = get_object_or_404(Jobs, id=id)
 
