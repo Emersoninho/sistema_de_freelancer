@@ -1,0 +1,37 @@
+# 🚀 Freelance Connect - Gerenciador de Jobs
+
+Uma plataforma robusta desenvolvida em **Django** para conectar clientes e freelancers, com fluxo completo de aprovação de projetos, sistema de arquivos e gestão financeira.
+
+## ✨ Funcionalidades
+
+### 🔐 Autenticação e Perfil
+- **Login por E-mail:** Autenticação customizada utilizando e-mail em vez de username.
+- **Cadastro Completo:** Perfis distintos para Clientes (quem posta) e Freelancers (quem executa).
+- **Recuperação de Senha:** Sistema integrado para redefinição de acesso via e-mail.
+
+### 💼 Gestão de Projetos (Jobs)
+- **Filtros Avançados:** Busca de jobs por preço, prazo e categoria (Design/Edição de Vídeo).
+- **Fluxo de Status:**
+  - `Em criação`: Job aceito pelo freelancer.
+  - `Aguardando aprovação`: Arquivo final enviado para revisão.
+  - `Finalizado`: Projeto aprovado e concluído.
+- **Sistema de Arquivamento:** Opção de arquivar jobs finalizados para organizar a dashboard do cliente.
+- **Entrega de Arquivos:** Upload de referências e envio do arquivo final diretamente pela plataforma.
+
+### 📊 Dashboard do Cliente
+- **Controle Financeiro:** Soma automática do total investido em projetos finalizados.
+- **Gestão de Entregas:** Opção de **Aprovar** ou **Recusar** o projeto enviado pelo freelancer.
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Python 3.x**
+- **Django Framework** (MVT Architecture)
+- **SQLite** (Desenvolvimento)
+- **Bootstrap 5** (Interface UI)
+- **Django Environ** (Segurança de chaves)
+
+## 🚀 Como rodar o projeto
+
+1. **Clone o repositório:**
+   ```bash
+   git clone [https://github.com/Emersoninho/sistema_de_freelancer.git](https://github.com/Emersoninho/sistema_de_freelancer.git)
